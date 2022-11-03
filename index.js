@@ -15,14 +15,20 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
 })
 
+// routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/tags", tagsRoute);
 
-// 404 route
+// home route
+app.get("/", (req, res) => {
+    res.send("Blog API for ALTSchool exam!")
+});
+
+// 404 Route
 app.use('*', (req, res) => {
-    return res.status(404).json({ message: 'route not found' })
-})
+    return res.status(404).json({msg: "Route not found!"});
+});
 
 module.exports = app;
