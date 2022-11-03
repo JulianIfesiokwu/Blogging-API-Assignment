@@ -9,6 +9,10 @@ Database.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
 });
 
+app.get("/", (req, res) => {
+    res.send("Blog API for ALTSchool exam!")
+})
+
 app.listen(PORT, () => {
     console.log('Listening on port, ', PORT)
 })
