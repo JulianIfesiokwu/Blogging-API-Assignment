@@ -1,7 +1,7 @@
 const app = require('./index')
 const Database = require('./database/index');
 
-const PORT = process.env.PORT || 7000
+const PORT = process.env.PORT
 
 // connect to database
 Database.connect(process.env.MONGO_URI, {
