@@ -1,4 +1,4 @@
-# Pizza App
+# Blog API
 This is a Blogging API for completion of ALTSchool exams
 
 ---
@@ -35,14 +35,13 @@ This is a Blogging API for completion of ALTSchool exams
 ---
 
 ### User
-| field      | data_type | constraints                                      |
-| ---------- | --------- | ------------------------------------------------ |
-| id         | string    | required                                         |
-| first_name | string    | required                                         |
-| last_name  | string    | required                                         |
-| email      | string    | required                                         |
-| password   | string    | required                                         |
-| user_type  | string    | required, default: user, enum: ['user', 'admin'] |
+| field      | data_type | constraints |
+| ---------- | --------- | ----------- |
+| first_name | string    | required    |
+| last_name  | string    | required    |
+| email      | string    | required    |
+| password   | string    | required    |
+| user_name  | string    | required    |
 
 
 ### Blog
@@ -53,7 +52,7 @@ This is a Blogging API for completion of ALTSchool exams
 | description  | string    | optional    |
 | author       | string    | optional    |
 | state        | string    | optional    |
-| read_count   | string    | optional    |
+| read_count   | number    | optional    |
 | reading_time | number    | optional    |
 | tags         | string    | optional    |
 | body         | string    | required    |
@@ -99,7 +98,7 @@ Success
 ---
 ### Login User
 
-- Route: /login
+- Route: localhost:7000/api/auth/login
 - Method: POST
 - Body: 
 ```
@@ -120,16 +119,21 @@ Success
 ```
 
 ---
-### Create Order
+### Create a Post
 
-- Route: /orders
+- Route: localhost:7000/api/posts/create-new
 - Method: POST
-- Header
-    - Authorization: Bearer {token}
 - Body: 
 ```
 {
-    items: [{ name: 'chicken pizza', price: 900, size: 'm', quantity: 1}]
+    "title": "superbad Part 2",
+    "description": "Another One",
+    "author": "crabbie",
+    "reading_time": 5,
+    "username": "crabbie",
+    "body": "Shoot your shot",
+    "state": "draft",
+    "tags": []
 }
 ```
 
@@ -138,54 +142,79 @@ Success
 Success
 ```
 {
-    state: 1,
-    total_price: 900,
-    created_at: Mon Oct 31 2022 08:35:00 GMT+0100,
-    items: [{ name: 'chicken pizza', price: 900, size: 'm', quantity: 1}]
+    "title": "superbad Part 2",
+    "description": "Another One",
+    "tags": [],
+    "author": "crabbie",
+    "username": "crabbie",
+    "reading_time": 5,
+    "state": "draft",
+    "body": "Shoot your shot",
+    "_id": "63648636e14da2639fb93aee",
+    "createdAt": "2022-11-04T03:25:42.369Z",
+    "updatedAt": "2022-11-04T03:25:42.369Z",
+    "__v": 0
 }
 ```
 ---
-### Get Order
+### Update a Post
 
-- Route: /orders/:id
-- Method: GET
-- Header
-    - Authorization: Bearer {token}
+- Route: localhost:7000/api/posts/:id
+- Method: PUT
 - Responses
 
 Success
 ```
 {
-    state: 1,
-    total_price: 900,
-    created_at: Mon Oct 31 2022 08:35:00 GMT+0100,
-    items: [{ name: 'chicken pizza', price: 900, size: 'm', quantity: 1}]
+    "msg": "Post updated!",
+    "updatedPost": {
+        "_id": "6363914d79966abac86c79e7",
+        "title": "superbad Part 25",
+        "description": "Another Day",
+        "tags": [],
+        "author": "shortstuff",
+        "username": "shortstuff",
+        "reading_time": 5,
+        "state": "published",
+        "body": "Shoot your shot",
+        "createdAt": "2022-11-03T10:00:45.595Z",
+        "updatedAt": "2022-11-04T03:42:09.248Z",
+        "__v": 0
+    }
+}
+```
+---
+---
+### Delete a Post
+
+- Route: localhost:7000/api/posts/:id
+- Method: DELETE
+- Responses
+
+Success
+```
+{
+    "Post has been deleted!"
 }
 ```
 ---
 
-### Get Orders
+### Get all Posts
 
-- Route: /orders
+- Route: localhost:7000/api/posts/all
 - Method: GET
-- Header:
-    - Authorization: Bearer {token}
+
 - Query params: 
     - page (default: 1)
-    - per_page (default: 10)
-    - order_by (default: created_at)
-    - order (options: asc | desc, default: desc)
-    - state
-    - created_at
+    - limit (default: 20)
+    - tag []
+    - author
 - Responses
 
 Success
 ```
 {
-    state: 1,
-    total_price: 900,
-    created_at: Mon Oct 31 2022 08:35:00 GMT+0100,
-    items: [{ name: 'chicken pizza', price: 900, size: 'm', quantity: 1}]
+    
 }
 ```
 ---
