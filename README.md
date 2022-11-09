@@ -1,6 +1,8 @@
 # Blog API
 This is a Blogging API for completion of ALTSchool exams
 
+**Please note I left the password available and also left the env file accessible for the interviewer**
+
 ---
 
 ## Requirements
