@@ -13,13 +13,13 @@ describe("Auth Route", () => {
             "username": "badBart"
         }
         const response = await supertest(app).post("/api/auth/register").send(userToAdd);
-        expect(response.headers["content-type"]).toBe("application/json; charset=utf-8");
-        expect(response.status).toBe(201);
-        expect(response.body.first_name).toEqual("Bart");
-        expect(response.body.last_name).toEqual("Simpson");
-        expect(response.body.email).toEqual("badBart@gmail.com");
-        expect(response.body.password).toEqual("1234");
-        expect(response.body.username).toEqual("badBart");
+        expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
+        expect(response.status).toEqual(201);
+        expect(response.body.userToAdd.first_name).toEqual("Bart");
+        expect(response.body.userToAdd.last_name).toEqual("Simpson");
+        expect(response.body.userToAdd.email).toEqual("badBart@gmail.com");
+        expect(response.body.userToAdd.password).toEqual("1234");
+        expect(response.body.userToAdd.username).toEqual("badBart");
     })
 
     it("POST /login works", async () => {
@@ -29,11 +29,11 @@ describe("Auth Route", () => {
         }
         const response = await supertest(app).post("/api/auth/register").send(userToLogin);
         expect(response.headers["content-type"]).toBe("application/json; charset=utf-8");
-        expect(response.status).toBe(201);
-        expect(response.body.first_name).toBe("Bart");
-        expect(response.body.last_name).toBe("Simpson");
-        expect(response.body.email).toBe("badBart@gmail.com");
-        expect(response.body.password).toBe("1234");
-        expect(response.body.username).toBe("badBart");
+        expect(response.status).toEqual(201);
+        expect(response.body.first_name).toEqual("Bart");
+        expect(response.body.last_name).toEqual("Simpson");
+        expect(response.body.email).toEqual("badBart@gmail.com");
+        expect(response.body.password).toEqual("1234");
+        expect(response.body.username).toEqual("badBart");
     })
 })

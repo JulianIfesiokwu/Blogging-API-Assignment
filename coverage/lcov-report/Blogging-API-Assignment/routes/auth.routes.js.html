@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>10/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>10/20</span>
             </div>
         
             
@@ -99,25 +99,21 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,17 +121,29 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const router = require("express").Router();
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const router = require("express").Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 &nbsp;
@@ -151,7 +159,8 @@ router.post("/register", async (req, res) =&gt; {
         })
 &nbsp;
         const user = await newUser.save();
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({msg: "User successfully created", user})</span>
+<span class="cstat-no" title="statement not covered" >        res.status(201).json({msg: "User successfully created", user});</span>
+<span class="cstat-no" title="statement not covered" >        console.log(res.status, res.body)</span>
     } catch (error) {
         res.status(500).json(error)
     }
@@ -161,10 +170,13 @@ router.post("/register", async (req, res) =&gt; {
 router.post("/login", <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
         const {email, password} = <span class="cstat-no" title="statement not covered" >req.body;</span>
+        // if email or pasword is wrong
 <span class="cstat-no" title="statement not covered" >        if (!email || !password) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json("Please provide email and password!")</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json("Please provide valid email and password!");</span>
         }
-        const token = <span class="cstat-no" title="statement not covered" >jwt.sign({email,password},process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})</span>
+        // create and assign a token
+        const token = <span class="cstat-no" title="statement not covered" >jwt.sign({email,password},process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});</span>
+<span class="cstat-no" title="statement not covered" >        res.header("Authorization", `Bearer ${token}`);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(201).json({msg: "User logged in", token});</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        res.status(500).json(error);</span>
@@ -178,7 +190,7 @@ module.exports = router;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-03T21:03:49.687Z
+                at 2022-11-10T12:41:28.571Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

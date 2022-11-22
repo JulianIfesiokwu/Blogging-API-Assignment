@@ -9,6 +9,11 @@ const PostSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    state: {
+        type: String,
+        enum: ['draft', 'published'],
+        default: 'draft'
+    },
     tags: {
         type: Array,
     },
@@ -21,11 +26,9 @@ const PostSchema = new mongoose.Schema({
     },
     read_count: {
         type: Number,
+        default: 0
     },
     reading_time: {
-        type: Number,
-    },
-    state: {
         type: String,
     },
     body: {

@@ -14,7 +14,8 @@ router.post("/register", async (req, res) => {
         })
 
         const user = await newUser.save();
-        res.status(201).json({msg: "User successfully created", user})
+        res.status(201).json({msg: "User successfully created", user});
+        console.log(res.body)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -24,10 +25,13 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const {email, password} = req.body;
+        // if email or pasword is wrong
         if (!email || !password) {
-            return res.status(400).json("Please provide email and password!")
+            return res.status(400).json("Please provide valid email and password!");
         }
-        const token = jwt.sign({email,password},process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
+        // create and assign a token
+        const token = jwt.sign({email,password},process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+        res.header("Authorization", `Bearer ${token}`);
         res.status(201).json({msg: "User logged in", token});
     } catch (error) {
         res.status(500).json(error);

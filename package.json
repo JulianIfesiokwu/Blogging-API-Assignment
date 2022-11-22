@@ -4,7 +4,7 @@
   "description": "Alt school Exam - Blogging API",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "jest --coverage"
   },
   "repository": {

@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 const authenticationMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.Authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(403).json("No valid Token!");
+    res.status(401).json("No valid token provided!");
   }
 
   const token = authHeader.split(' ')[1];

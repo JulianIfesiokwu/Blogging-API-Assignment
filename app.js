@@ -11,4 +11,4 @@ Database.connect(process.env.MONGO_URI, {
 
 app.listen(PORT, () => {
     console.log('Listening on port, ', PORT)
-})
+});
