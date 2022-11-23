@@ -1,7 +1,6 @@
 const supertest = require('supertest');
 const app = require("../index");
 
-
 describe("Auth Route", () => {
 
     it("POST /register works", async () => {
