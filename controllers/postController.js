@@ -1,13 +1,24 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
 
-exports.createDraft = async (req, res) => {
-    const newPost = new Post(req.body);
+exports.createPost = async (req, res) => {
     try {
-        const savedPost = await newPost.save();
+        const { title, body, description, tags, email } = req.body;
+        const reading_time = body.split(' ').length / 200 +' ' + 'mins'
+        const userId = email
+
+        const post = new Post({
+            title,
+            description,
+            tags,
+            body,
+            reading_time,
+            author: userId            
+        })
+        const savedPost = await post.save();
         res.status(200).json({msg: "Post created successfully",savedPost});
     } catch (error) {
-        res.status(500).json({message: message.error});
+        res.status(500).json({error});
     }
 };
 

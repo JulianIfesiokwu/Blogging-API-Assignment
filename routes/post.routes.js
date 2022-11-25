@@ -2,7 +2,7 @@ const router = require("express").Router();
 const postController = require('../controllers/postController')
 
 // Create New Post
-router.post("/create-new", postController.createDraft);
+router.post("/create-new", postController.createPost);
 
 // Update Post
 router.put("/:id", postController.updatePost);
