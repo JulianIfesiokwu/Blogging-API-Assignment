@@ -1,38 +1,66 @@
 const supertest = require('supertest');
+const User = require("../models/User")
+const { connect } = require("./database");
+
 const app = require("../index");
 
-describe("Auth Route", () => {
+describe("auth route", () => {
+    let conn;
 
-    it("POST /register works", async () => {
+    beforeAll(async () => {
+        conn = await connect()
+    })
+
+    afterEach(async () => {
+        await conn.cleanup()
+    })
+
+    afterAll(async () => {
+        await conn.disconnect()
+    })
+
+    it("should signup a user", async () => {
         const userToAdd = {
             "first_name": "Bart",
             "last_name": "Simpson",
             "email": "badBart@gmail.com",
             "password": "1234",
-            "username": "badBart"
         }
-        const response = await supertest(app).post("/api/auth/register").send(userToAdd);
-        expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8");
-        expect(response.status).toEqual(201);
-        expect(response.body.userToAdd.first_name).toEqual("Bart");
-        expect(response.body.userToAdd.last_name).toEqual("Simpson");
-        expect(response.body.userToAdd.email).toEqual("badBart@gmail.com");
-        expect(response.body.userToAdd.password).toEqual("1234");
-        expect(response.body.userToAdd.username).toEqual("badBart");
-    })
+        const response = await supertest(app)
+            .post("/api/auth/register")
+            .set("content-type", "application/json")
+            .send(userToAdd)
 
-    it("POST /login works", async () => {
-        const userToLogin = {
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty("msg","User successfully created");
+        expect(response.body).toHaveProperty("User", {"first_name": "Bart",
+            "last_name": "Simpson",
             "email": "badBart@gmail.com",
             "password": "1234",
-        }
-        const response = await supertest(app).post("/api/auth/register").send(userToLogin);
-        expect(response.headers["content-type"]).toBe("application/json; charset=utf-8");
-        expect(response.status).toEqual(201);
-        expect(response.body.first_name).toEqual("Bart");
-        expect(response.body.last_name).toEqual("Simpson");
-        expect(response.body.email).toEqual("badBart@gmail.com");
-        expect(response.body.password).toEqual("1234");
-        expect(response.body.username).toEqual("badBart");
+        });
     })
-})
+
+    it("should login a user", async () => {
+        // create user in db
+        const userToLogin = await User.create({
+            first_name: 'Bart',
+            last_name: 'Simpson',
+            email: 'badBart@gmail.com',
+            password: 'badBart'
+        });
+
+        // login user
+        const response = await supertest(app)
+        .post("/api/auth/login")
+        .set('content-type', 'application/json')
+        .send({
+            email: 'badBart@gmail.com',
+            password: 'badBart' 
+        });
+        
+        expect(response.status).toEqual(200);
+        expect(response.body).toHaveProperty("msg", "User logged in");
+        expect(response.body).toHaveProperty("token", token);
+        }
+    );
+});

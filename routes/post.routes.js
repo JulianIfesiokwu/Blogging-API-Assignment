@@ -1,6 +1,4 @@
 const router = require("express").Router();
-const Post = require("../models/Post");
-const authenticationMiddleware = require("../middleware/authUser");
 const postController = require('../controllers/postController')
 
 // Create New Post
@@ -15,7 +13,7 @@ router.delete("/:id", postController.deletePost);
 // Get a Post
 router.get("/:id", postController.getAPost);
 
-// get all posts, also get all posts by author, title or tags
+// get all posts
 router.get("/", postController.getAllPosts);
 
 module.exports = router
